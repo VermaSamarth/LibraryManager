@@ -5,20 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Borrow;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BorrowBooks extends Controller
 {
     public function details(){
-        $bookdetails=Borrow::find(3);
-        $count=0;
-        dd($bookdetails);
-        $user=User::find(3);
+        $user=Auth::user();
+        //$user=User::find($id);
         $borrows=$user->user_borrow;
-        //dd($borrows[0]->book_details->name);
-        foreach($borrows as $borrow){
-            $count++;
-            //echo $borrow->book_details->name;
-        }
-        return view('borrowedbooks','count');
+        //dd($user);
+        return view('borrowedbooks',['borrow'=>$borrows]);
     }
 }

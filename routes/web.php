@@ -39,20 +39,34 @@ Route::middleware(['auth','verified',EnsureIsAdmin::class])->group(function(){  
     //Add a book in the library store part
     Route::post('/admin/addbook/store',[BookController::class,'store'])->name('store_book');
 
+    //More details about the book the users have borrowed
     Route::get('/admin/customers/moredetails/{id}',[BookController::class,'moredetails'])->name('more_details');
     
+    //Edit the book details of the ones in library
+    Route::get('/all_books/edit/{id}',[BookController::class,'edit'])->name('edit');
+
+    //Upload the updated book details in the library 
+    Route::put('/all_books/update/{id}',[BookController::class,'update'])->name('update');
+    
+    //Admin can view all the books
+    Route::get('/all_books',[BookController::class,'display'])->middleware(['auth','verified'])->name('all_books');
 });
 
+            //User Access URLs
+Route::middleware(['auth','verified',EnsureIsUser::class])->group(function(){
+    
+    // Borrowed Books
+    Route::get('/books',[BorrowBooks::class,'details'])->name('your_books');
 
-            // Borrowed Books
-Route::get('/books',[BorrowBooks::class,'details'])->middleware('auth','verified',EnsureIsUser::class)->name('your_books');
+    //All library books - User Side
+    route::get('/all_books/user',[BookController::class,'print'])->name('user_all_books');
 
-            
-            // All library Books
-Route::get('/all_books',[BookController::class,'display'])->middleware(['auth','verified'])->name('all_books');
-
+    //User borrow books 
+    route::get('/all_books/user/borrow/{id}',[BookController::class,'update_borrow'])->name('user_borrow_books');
 
 
+    //route::put('/all_books/user/update/{id}',[BookController::class,'update_borrow'])->name('user_all_books');
+});
 
 
 Route::get('/dashboard', function () {

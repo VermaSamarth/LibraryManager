@@ -34,7 +34,7 @@
                             <td class="border px-4 py-2">{{$book->public}}</td>
                             <td class="border px-4 py-2">{{$book->available}}</td>
                             <td class="border px-4 py-2">{{$book->total}}</td>
-                            <td class="border px-4 py-2" style="color: rgb(4, 125, 20);"><a href="/all_books/edit/{{$book->id}}"><strong>Select</strong></a></td>
+                            <td class="border px-4 py-2" style="color: rgb(4, 125, 20);"><a href="/all_books/user/borrow/{{$book->id}}"><strong>Select</strong></a></td>
                         </tr>
                         @endforeach
                     </tbody>
